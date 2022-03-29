@@ -66,7 +66,7 @@ instant99@arch:~$ cp sample_config.py config.py
 </h2>
 
 ```console
-thehamkercat@arch:~$ python3 -m wbb
+instant99@arch:~$ python3 -m wbb
 ```
 <h1>
     <p align="center">
@@ -89,7 +89,7 @@ thehamkercat@arch:~$ python3 -m wbb
 </h3>
 
 ```console
-thehamkercat@arch:~$ git clone https://github.com/thehamkercat/WilliamButcherBot
+instant99@arch:~$ git clone https://github.com/thehamkercat/WilliamButcherBot
 thehamkercat@arch:~$ cd WilliamButcherBot
 thehamkercat@arch:~$ pip3 install pyrogram TgCrypto
 thehamkercat@arch:~$ python3 str_gen.py
@@ -100,9 +100,9 @@ thehamkercat@arch:~$ python3 str_gen.py
 </h1>
 
 ```console
-thehamkercat@arch:~$ git clone https://github.com/thehamkercat/WilliamButcherBot
-thehamkercat@arch:~$ cd WilliamButcherBot
-thehamkercat@arch:~$ cp sample_config.env config.env
+instant99@arch:~$ git clone https://github.com/thehamkercat/WilliamButcherBot
+instant99@arch:~$ cd WilliamButcherBot
+instant99@arch:~$ cp sample_config.env config.env
 ```
 
 <h3 align="center"> 
@@ -110,8 +110,8 @@ thehamkercat@arch:~$ cp sample_config.env config.env
 </h3>
 
 ```console
-thehamkercat@arch:~$ sudo docker build . -t wbb
-thehamkercat@arch:~$ sudo docker run wbb
+instant99@arch:~$ sudo docker build . -t wbb
+instant99@arch:~$ sudo docker run wbb
 ```
 
 <h2 align="center"> 
