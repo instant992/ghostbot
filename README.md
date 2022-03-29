@@ -3,7 +3,7 @@
 </h1>
 
 <h3 align="center"> 
-    Помощник для чата в телеграмме, + юзербот.
+    Помощник для чата в телеграмме, + юзербот (Часть функций для того что бы не тригерили бота в чатах вырезана).
       <a href="https://github.com/TheHamkerCat/WilliamButcherBot ">
         Оригинал бота
     </a>
@@ -51,8 +51,8 @@
 </h2>
 
 ```console
-instant99@arch:~$ git clone https://github.com/thehamkercat/WilliamButcherBot
-instant99@arch:~$ cd WilliamButcherBot
+instant99@arch:~$ git clone https://github.com/instant99/ghostbot
+instant99@arch:~$ cd GhostGuardBot
 instant99@arch:~$ pip3 install -U -r requirements.txt
 instant99@arch:~$ cp sample_config.py config.py
 ```
@@ -89,8 +89,8 @@ instant99@arch:~$ python3 -m wbb
 </h3>
 
 ```console
-instant99@arch:~$ git clone https://github.com/thehamkercat/WilliamButcherBot
-thehamkercat@arch:~$ cd WilliamButcherBot
+instant99@arch:~$ git clone https://github.com/instant99/ghostbot
+thehamkercat@arch:~$ cd GhostGuardBot
 thehamkercat@arch:~$ pip3 install pyrogram TgCrypto
 thehamkercat@arch:~$ python3 str_gen.py
 ```
@@ -100,8 +100,8 @@ thehamkercat@arch:~$ python3 str_gen.py
 </h1>
 
 ```console
-instant99@arch:~$ git clone https://github.com/thehamkercat/WilliamButcherBot
-instant99@arch:~$ cd WilliamButcherBot
+instant99@arch:~$ git clone https://github.com/instant99/ghostbot
+instant99@arch:~$ cd GhostGuardBot
 instant99@arch:~$ cp sample_config.env config.env
 ```
 
