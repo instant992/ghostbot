@@ -145,7 +145,7 @@ async def welcome(_, message: Message):
             text = (
                 f"{(member.mention())} Вы человек?\n"
                 f"Решите эту капчу за {WELCOME_DELAY_KICK_SEC} "
-                "секунды за 4 попытки, или вас кикают."
+                "секунд, у вас будет 4 попытки, после чего вас кикнут."
             )
         except ChatAdminRequired:
             return
