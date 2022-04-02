@@ -1,9 +1,9 @@
 <h1 align="center"> 
-    ✨ WilliamButcherBot ✨ 
+    ✨ GhostGuardBot ✨ 
 </h1>
 
 <h3 align="center"> 
-    Telegram Group Manager Bot + Userbot Written In Python Using Pyrogram.
+    ТГ Бот на Python и Pyrogram.
 </h3>
 
 <p align="center">
