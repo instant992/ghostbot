@@ -33,8 +33,8 @@ from wbb.core.decorators.errors import capture_err
 from wbb.core.keyboard import ikb
 from wbb.utils.pastebin import paste
 
-__MODULE__ = "Paste"
-__HELP__ = "/paste - To Paste Replied Text Or Document To A Pastebin"
+__MODULE__ = "Вставка"
+__HELP__ = "/paste - Чтобы вставить отвеченный текст или документ в Pastebin (Обязательно в конце каждой строчки писать ":" или ";")"
 pattern = re.compile(r"^text/|json$|yaml$|xml$|toml$|x-sh$|x-shellscript$")
 
 
@@ -43,24 +43,24 @@ pattern = re.compile(r"^text/|json$|yaml$|xml$|toml$|x-sh$|x-shellscript$")
 @capture_err
 async def paste_func(_, message: Message):
     if not message.reply_to_message:
-        return await eor(message, text="Reply To A Message With /paste")
+        return await eor(message, text="Ответьте на сообщение командой /paste")
     r = message.reply_to_message
 
     if not r.text and not r.document:
         return await eor(
-            message, text="Only text and documents are supported."
+            message, text="Поддерживается только текст или документы."
         )
 
-    m = await eor(message, text="Pasting...")
+    m = await eor(message, text="Вставка...")
 
     if r.text:
         content = str(r.text)
     elif r.document:
         if r.document.file_size > 40000:
-            return await m.edit("You can only paste files smaller than 40KB.")
+            return await m.edit("Вы можете вставлять только документы размером менее 40 КБ.")
 
         if not pattern.search(r.document.mime_type):
-            return await m.edit("Only text files can be pasted.")
+            return await m.edit("Можно вставлять только текстовые файлы.")
 
         doc = await message.reply_to_message.download()
 
@@ -82,8 +82,8 @@ async def paste_func(_, message: Message):
             await message.reply_photo(
                 photo=link,
                 quote=False,
-                caption=f"**Paste Link:** [Here]({link})",
+                caption=f"**Ваша ссылка:** [Here]({link})",
             )
         await m.delete()
     except Exception:
-        await m.edit("Here's your paste", reply_markup=kb)
+        await m.edit("Вот ваш вставленный текст", reply_markup=kb)
