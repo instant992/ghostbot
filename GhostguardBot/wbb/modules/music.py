@@ -37,11 +37,11 @@ from wbb import app, arq
 from wbb.core.decorators.errors import capture_err
 from wbb.utils.pastebin import paste
 
-__MODULE__ = "Music"
+__MODULE__ = "Музыка"
 __HELP__ = """
-/ytmusic [link] To Download Music From Various Websites Including Youtube. [SUDOERS]
-/saavn [query] To Download Music From Saavn.
-/lyrics [query] To Get Lyrics Of A Song.
+/ytmusic [link] Скачать музыку с различных сайтов, включая Youtube. [SUDOERS]
+/saavn [query] Скачать музыку с Saavn.
+/lyrics [query] Получить текст песни.
 """
 
 is_downloading = False
@@ -83,16 +83,16 @@ def download_youtube_audio(arq_resp):
 async def music(_, message):
     global is_downloading
     if len(message.command) < 2:
-        return await message.reply_text("/ytmusic needs a query as argument")
+        return await message.reply_text("/ytmusic нужен запрос в качестве аргумента")
 
     url = message.text.split(None, 1)[1]
     if is_downloading:
         return await message.reply_text(
-            "Another download is in progress, try again after sometime."
+            "Выполняется еще одна загрузка. Повторите попытку через некоторое время."
         )
     is_downloading = True
     m = await message.reply_text(
-        f"Downloading {url}", disable_web_page_preview=True
+        f"Загрузка {url}", disable_web_page_preview=True
     )
     try:
         loop = get_running_loop()
@@ -102,7 +102,7 @@ async def music(_, message):
         )
 
         if not music:
-            return await message.reply_text("[ERROR]: MUSIC TOO LONG")
+            return await message.reply_text("[Ошибка]: Музыка слишком долгая")
         (
             title,
             performer,
@@ -143,14 +143,14 @@ async def download_song(url):
 async def jssong(_, message):
     global is_downloading
     if len(message.command) < 2:
-        return await message.reply_text("/saavn requires an argument.")
+        return await message.reply_text("/saavn требует аргумента.")
     if is_downloading:
         return await message.reply_text(
-            "Another download is in progress, try again after sometime."
+            "Выполняется еще одна загрузка. Повторите попытку через некоторое время."
         )
     is_downloading = True
     text = message.text.split(None, 1)[1]
-    m = await message.reply_text("Searching...")
+    m = await message.reply_text("Выполняется поиск...")
     try:
         songs = await arq.saavn(text)
         if not songs.ok:
