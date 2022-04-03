@@ -34,7 +34,7 @@ from wbb.core.keyboard import ikb
 from wbb.utils.pastebin import paste
 
 __MODULE__ = "Вставка"
-__HELP__ = "/paste - Чтобы вставить отвеченный текст или документ в Pastebin (Обязательно в конце каждой строчки писать ":" или ";")"
+__HELP__ = "/paste - Чтобы вставить отвеченный текст или документ в Pastebin (Обязательно в конце каждой строчки писать : или ;)"
 pattern = re.compile(r"^text/|json$|yaml$|xml$|toml$|x-sh$|x-shellscript$")
 
 
