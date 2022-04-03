@@ -48,7 +48,7 @@ async def download_func(_, message: Message):
     }
     m = await eor(
         message,
-        text=section("Downloading", body),
+        text=section("Загрузка", body),
     )
 
     if reply:
@@ -76,7 +76,7 @@ async def download_func(_, message: Message):
 
     text = message.text
     if len(text.split()) < 2:
-        return await eor(m, text="Invalid Arguments")
+        return await eor(m, text="Неверный аргумент")
 
     url = text.split(None, 1)[1]
 
@@ -96,7 +96,7 @@ async def download_func(_, message: Message):
     except Exception as e:
         e = format_exc()
         e = e.splitlines()[-1]
-        return await eor(m, text=f"**Error:** `{str(e)}`")
+        return await eor(m, text=f"**Ошибка:** `{str(e)}`")
 
     elapsed = int(time() - start)
     body["File"] = file.split("/")[-1]
@@ -108,7 +108,7 @@ async def download_func(_, message: Message):
 @app2.on_message(SUDOERS & filters.command("upload", prefixes=USERBOT_PREFIX))
 async def upload_func(_, message: Message):
     if len(message.text.split()) != 2:
-        return await eor(message, text="Invalid Arguments")
+        return await eor(message, text="Неверный аргумент")
 
     url_or_path = message.text.split(None, 1)[1]
 
@@ -118,7 +118,7 @@ async def upload_func(_, message: Message):
         "Started": ctime(start),
     }
 
-    m = await eor(message, text=section("Uploading", body))
+    m = await eor(message, text=section("Загрузка", body))
 
     async def upload_file(path: str):
         task, task_id = await add_task(
@@ -130,7 +130,7 @@ async def upload_func(_, message: Message):
         body["Task ID"] = task_id
         await eor(
             m,
-            text=section("Uploading", body),
+            text=section("Загрузка", body),
         )
 
         await task
@@ -161,4 +161,4 @@ async def upload_func(_, message: Message):
     except Exception as e:
         e = format_exc()
         e = e.splitlines()[-1]
-        return await eor(m, text=f"**Error:** `{str(e)}`")
+        return await eor(m, text=f"**Ошибка:** `{str(e)}`")
