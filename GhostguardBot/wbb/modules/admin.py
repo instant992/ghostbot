@@ -49,9 +49,9 @@ from wbb.utils.functions import (
 )
 
 __MODULE__ = "Админам"
-__HELP__ = """/ban - Забанить пользователя
-/dban - Удалить сообщение на которое вы ответили, и забанить пользователя
-/tban - Забанить на определенное время
+__HELP__ = """/banan - Забанить пользователя
+/dbanan - Удалить сообщение на которое вы ответили, и забанить пользователя
+/tbanan - Забанить на определенное время
 /unban - Разбанить пользователя
 /warn - Выдать варн пользователю
 /dwarn - Удалить сообщение на которое вы ответили, и заварнить пользователя
@@ -243,7 +243,7 @@ async def kickFunc(_, message: Message):
 
 
 @app.on_message(
-    filters.command(["ban", "dban", "tban"])
+    filters.command(["banan", "dbanan", "tbanan"])
     & ~filters.edited
     & ~filters.private
 )
@@ -281,7 +281,7 @@ async def banFunc(_, message: Message):
     )
     if message.command[0][0] == "d":
         await message.reply_to_message.delete()
-    if message.command[0] == "tban":
+    if message.command[0] == "tbanan":
         split = reason.split(None, 1)
         time_value = split[0]
         temp_reason = split[1] if len(split) > 1 else ""
