@@ -51,7 +51,7 @@ async def paste_func(_, message: Message):
             message, text="Поддерживается только текст или документы."
         )
 
-    m = await eor(message, text="Вставка...")
+    m = await eor(message, text="Происходит вставка...")
 
     if r.text:
         content = str(r.text)
