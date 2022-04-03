@@ -8,7 +8,7 @@ __MODULE__ = "Телеграф"
 __HELP__ = "/telegraph [Page name]: Вставить стилизованный текст в telegraph."
 
 
-@app.on_message(filters.command("telegraph"))
+@app.on_message(filters.command("telegraph") & ~filters.edited)
 @capture_err
 async def paste(_, message: Message):
     reply = message.reply_to_message
