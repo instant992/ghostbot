@@ -28,8 +28,8 @@ import traceback
 from wbb import app
 from wbb.utils.inlinefuncs import *
 
-__MODULE__ = "Inline"
-__HELP__ = """See inline for help related to inline"""
+__MODULE__ = "Инлайн"
+__HELP__ = """См. встроенный для справки, связанной со встроенным"""
 
 
 @app.on_inline_query()
