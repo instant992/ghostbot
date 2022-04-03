@@ -40,8 +40,8 @@ from wbb.utils.functions import extract_text_and_keyb
 
 __MODULE__ = "Фильтры"
 __HELP__ = """/filters Список всех фильтров в чате.
-/filter [FILTER_NAME] Сохранить фильтр (Только стикеры или текст).
-/stop [FILTER_NAME] Убрать фильтр.
+/gfilter [FILTER_NAME] Сохранить фильтр (Только стикеры или текст).
+/removef [FILTER_NAME] Убрать фильтр.
 
 
 You can use markdown or html to save text too.
@@ -50,12 +50,12 @@ Checkout /markdownhelp to know more about formattings and other syntax.
 """
 
 
-@app.on_message(filters.command("filter") & ~filters.edited & ~filters.private)
+@app.on_message(filters.command("gfilter") & ~filters.edited & ~filters.private)
 @adminsOnly("can_change_info")
 async def save_filters(_, message):
     if len(message.command) < 2 or not message.reply_to_message:
         return await message.reply_text(
-            "**Ошибка:**\nОтветьте на сообщение или стикер с помощью /filter [FILTER_NAME] что бы сохранить их."
+            "**Ошибка:**\nОтветьте на сообщение или стикер с помощью /gfilter [FILTER_NAME] что бы сохранить их."
         )
     if (
             not message.reply_to_message.text
@@ -67,7 +67,7 @@ async def save_filters(_, message):
     name = message.text.split(None, 1)[1].strip()
     if not name:
         return await message.reply_text(
-            "**Применение:**\n__/filter [FILTER_NAME]__"
+            "**Применение:**\n__/gfilter [FILTER_NAME]__"
         )
     chat_id = message.chat.id
     _type = "text" if message.reply_to_message.text else "sticker"
@@ -78,7 +78,7 @@ async def save_filters(_, message):
         else message.reply_to_message.sticker.file_id,
     }
     await save_filter(chat_id, name, _filter)
-    await message.reply_text(f"__**Saved filter {name}.**__")
+    await message.reply_text(f"__**Сохраненный фильтр {name}.**__")
 
 
 @app.on_message(
@@ -96,7 +96,7 @@ async def get_filterss(_, message):
     await message.reply_text(msg)
 
 
-@app.on_message(filters.command("stop") & ~filters.edited & ~filters.private)
+@app.on_message(filters.command("removef") & ~filters.edited & ~filters.private)
 @adminsOnly("can_change_info")
 async def del_filter(_, message):
     if len(message.command) < 2:
