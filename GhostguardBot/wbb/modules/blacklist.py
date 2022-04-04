@@ -120,12 +120,12 @@ async def blacklist_filters_re(_, message):
                 await message.chat.restrict_member(
                     user.id,
                     ChatPermissions(),
-                    until_date=int(time() + 3600),
+                    until_date=int(time() + 1800),
                 )
             except Exception:
                 return
             return await app.send_message(
                 chat_id,
-                f"Выдан мут пользователю {user.mention} [`{user.id}`] на 1 час"
-                + f"из-за совпадения с черным списком слова {word}.",
+                f"Выдан мут пользователю {user.mention} [`{user.id}`] на 30 минут"
+                + f" из-за совпадения из черного списка слова {word}.",
             )
