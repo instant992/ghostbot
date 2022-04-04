@@ -42,15 +42,14 @@ from wbb.utils.dbfunctions import (
 from wbb.utils.filter_groups import karma_negative_group, karma_positive_group
 from wbb.utils.functions import get_user_id_and_usernames
 
-__MODULE__ = "Karma"
-__HELP__ = """[UPVOTE] - Use upvote keywords like "+", "+1", "thanks" etc to upvote a message.
-[DOWNVOTE] - Use downvote keywords like "-", "-1", etc to downvote a message.
-/karma_toggle [ENABLE|DISABLE] - Enable or Disable Karma System In Your Chat.
-Reply to a message with /karma to check a user's karma
-Send /karma without replying to any message to check karma list of top 10 users"""
+__MODULE__ = "Карма"
+__HELP__ = """[UPVOTE] - Используйте ключевые слова, такие как "+", "+1", "спасибо" и т. д., чтобы проголосовать за сообщение.
+/karma_toggle [ENABLE|DISABLE] - Включите или отключите систему кармы в чате.
+Ответьте на сообщение с /karma, чтобы проверить карму пользователя
+Отправьте /karma, не отвечая ни на одно сообщение, чтобы проверить список кармы 10 лучших пользователей"""
 
-regex_upvote = r"^(\+|\+\+|\+1|thx|tnx|ty|thank you|thanx|thanks|pro|cool|good|👍|\+\+ .+)$"
-regex_downvote = r"^(-|--|-1|👎|-- .+)$"
+regex_upvote = r"^(\+|\+\+|\+1|спс|спасиб|спасибо|благодарю|ок|👍|\+\+ .+)$"
+
 
 
 @app.on_message(
@@ -88,47 +87,7 @@ async def upvote(_, message):
         new_karma = {"karma": karma}
         await update_karma(chat_id, await int_to_alpha(user_id), new_karma)
     await message.reply_text(
-        f"Incremented Karma of {user_mention} By 1 \nTotal Points: {karma}"
-    )
-
-
-@app.on_message(
-    filters.text
-    & filters.group
-    & filters.incoming
-    & filters.reply
-    & filters.regex(regex_downvote, re.IGNORECASE)
-    & ~filters.via_bot
-    & ~filters.bot
-    & ~filters.edited,
-    group=karma_negative_group,
-)
-@capture_err
-async def downvote(_, message):
-    if not await is_karma_on(message.chat.id):
-        return
-    if not message.reply_to_message.from_user:
-        return
-    if not message.from_user:
-        return
-    if message.reply_to_message.from_user.id == message.from_user.id:
-        return
-
-    chat_id = message.chat.id
-    user_id = message.reply_to_message.from_user.id
-    user_mention = message.reply_to_message.from_user.mention
-    current_karma = await get_karma(chat_id, await int_to_alpha(user_id))
-    if current_karma:
-        current_karma = current_karma["karma"]
-        karma = current_karma - 1
-        new_karma = {"karma": karma}
-        await update_karma(chat_id, await int_to_alpha(user_id), new_karma)
-    else:
-        karma = 1
-        new_karma = {"karma": karma}
-        await update_karma(chat_id, await int_to_alpha(user_id), new_karma)
-    await message.reply_text(
-        f"Decremented Karma Of {user_mention} By 1 \nTotal Points: {karma}"
+        f"Карма пользователя {user_mention} была увеличена на 1 \nВсего поинтов: {karma}"
     )
 
 
@@ -137,10 +96,10 @@ async def downvote(_, message):
 async def command_karma(_, message):
     chat_id = message.chat.id
     if not message.reply_to_message:
-        m = await message.reply_text("Analyzing Karma...")
+        m = await message.reply_text("Анализ кармы...")
         karma = await get_karmas(chat_id)
         if not karma:
-            return await m.edit("No karma in DB for this chat.")
+            return await m.edit("Нет кармы в базе для этого чата.")
         msg = f"Karma list of {message.chat.title}"
         limit = 0
         karma_dicc = {}
@@ -156,7 +115,7 @@ async def command_karma(_, message):
                 )
             )
         if not karma_dicc:
-            return await m.edit("No karma in DB for this chat.")
+            return await m.edit("Нет кармы в базе для этого чата.")
         userdb = await get_user_id_and_usernames(app)
         karma = {}
         for user_idd, karma_count in karma_arranged.items():
@@ -170,22 +129,22 @@ async def command_karma(_, message):
         await m.edit(section(msg, karma))
     else:
         if not message.reply_to_message.from_user:
-            return await message.reply("Anon user hash no karma.")
+            return await message.reply("У анонимного пользователя нет кармы.")
 
         user_id = message.reply_to_message.from_user.id
         karma = await get_karma(chat_id, await int_to_alpha(user_id))
         if karma:
             karma = karma["karma"]
-            await message.reply_text(f"**Total Points**: __{karma}__")
+            await message.reply_text(f"**Общее количество очков**: __{karma}__")
         else:
             karma = 0
-            await message.reply_text(f"**Total Points**: __{karma}__")
+            await message.reply_text(f"**Общее количество очков**: __{karma}__")
 
 
 @app.on_message(filters.command("karma_toggle") & ~filters.private)
 @adminsOnly("can_change_info")
 async def captcha_state(_, message):
-    usage = "**Usage:**\n/karma_toggle [ENABLE|DISABLE]"
+    usage = "**Применение:**\n/karma_toggle [ENABLE|DISABLE]"
     if len(message.command) != 2:
         return await message.reply_text(usage)
     chat_id = message.chat.id
@@ -193,9 +152,9 @@ async def captcha_state(_, message):
     state = state.lower()
     if state == "enable":
         await karma_on(chat_id)
-        await message.reply_text("Enabled karma system.")
+        await message.reply_text("Система кармы включена.")
     elif state == "disable":
         await karma_off(chat_id)
-        await message.reply_text("Disabled karma system.")
+        await message.reply_text("Система кармы отключена.")
     else:
         await message.reply_text(usage)
