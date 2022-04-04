@@ -95,13 +95,13 @@ async def flood_control_func(_, message: Message):
         return
 
     # Mute if user sends more than 10 messages in a row
-    if DB[chat_id][user_id] >= 10:
+    if DB[chat_id][user_id] >= 5:
         DB[chat_id][user_id] = 0
         try:
             await message.chat.restrict_member(
                 user_id,
                 permissions=ChatPermissions(),
-                until_date=int(time() + 3600),
+                until_date=int(time() + 1800),
             )
         except Exception:
             return
@@ -116,12 +116,12 @@ async def flood_control_func(_, message: Message):
             ]
         )
         m = await message.reply_text(
-            f"Представьте, что вы зафлуживаете чат передо мной, выдан мут {mention} на час!",
+            f"Представьте, что вы зафлуживаете чат передо мной, выдан мут {mention} на полчаса!",
             reply_markup=keyboard,
         )
 
         async def delete():
-            await sleep(3600)
+            await sleep(1800)
             try:
                 await m.delete()
             except Exception:
