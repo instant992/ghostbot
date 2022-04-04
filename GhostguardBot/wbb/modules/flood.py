@@ -94,14 +94,14 @@ async def flood_control_func(_, message: Message):
     if user_id in mods or user_id in SUDOERS:
         return
 
-    # Mute if user sends more than 10 messages in a row
-    if DB[chat_id][user_id] >= 5:
+    # Mute if user sends more than 7 messages in a row
+    if DB[chat_id][user_id] >= 7:
         DB[chat_id][user_id] = 0
         try:
             await message.chat.restrict_member(
                 user_id,
                 permissions=ChatPermissions(),
-                until_date=int(time() + 1800),
+                until_date=int(time() + 1200),
             )
         except Exception:
             return
@@ -116,12 +116,12 @@ async def flood_control_func(_, message: Message):
             ]
         )
         m = await message.reply_text(
-            f"Представьте, что вы зафлуживаете чат передо мной, выдан мут {mention} на полчаса!",
+            f"Пользователю {mention} был выдан мут на 20 минут, по причине флуд!",
             reply_markup=keyboard,
         )
 
         async def delete():
-            await sleep(1800)
+            await sleep(1200)
             try:
                 await m.delete()
             except Exception:
@@ -155,7 +155,7 @@ async def flood_callback_func(_, cq: CallbackQuery):
 @adminsOnly("can_change_info")
 async def flood_toggle(_, message: Message):
     if len(message.command) != 2:
-        return await message.reply_text("Usage: /flood [ENABLE|DISABLE]")
+        return await message.reply_text("Применение: /flood [ENABLE|DISABLE]")
     status = message.text.split(None, 1)[1].strip()
     status = status.lower()
     chat_id = message.chat.id
@@ -166,4 +166,4 @@ async def flood_toggle(_, message: Message):
         await flood_off(chat_id)
         await message.reply_text("Отключена проверка флуда.")
     else:
-        await message.reply_text("Неизвестный суффикс, Используйте /flood [ENABLE|DISABLE]")
+        await message.reply_text("Неизвестная команда, Используйте /flood [ENABLE|DISABLE]")
