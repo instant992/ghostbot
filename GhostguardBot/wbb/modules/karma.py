@@ -100,7 +100,7 @@ async def command_karma(_, message):
         karma = await get_karmas(chat_id)
         if not karma:
             return await m.edit("Нет кармы в базе для этого чата.")
-        msg = f"Karma list of {message.chat.title}"
+        msg = f"Список кармы в чате {message.chat.title}"
         limit = 0
         karma_dicc = {}
         for i in karma:
