@@ -218,7 +218,7 @@ async def kickFunc(_, message: Message):
         return await message.reply_text("Я не могу найти этого пользователя.")
     if user_id == BOT_ID:
         return await message.reply_text(
-            "Вместо того, чтобы пытаться выкинуть меня, ты мог бы тратить своё время лучше. Это просто скучно."
+            "Вместо того, чтобы пытаться выгнать меня, ты мог бы тратить своё время лучше. Это просто скучно."
         )
     if user_id in SUDOERS:
         return await message.reply_text("Выкинуть админа — это не лучшая идея")
@@ -381,7 +381,7 @@ async def promoteFunc(_, message: Message):
         user_id=user_id,
         can_change_info=False,
         can_invite_users=bot.can_invite_users,
-        can_delete_messages=bot.can_delete_messages,
+        can_delete_messages=False,
         can_restrict_members=False,
         can_pin_messages=False,
         can_promote_members=False,
